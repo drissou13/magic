@@ -1,32 +1,103 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Untitled</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Magic Mirror</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --bg-color: black;
+      --text-color: white;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    .mirror {
+      text-align: center;
+      max-width: 800px;
+    }
+
+    .time {
+      font-size: 80px;
+      font-weight: bold;
+    }
+
+    .date {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .message {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    .weather {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .news {
+      font-size: 18px;
+      text-align: left;
+    }
+
+    .news-item {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
   <div class="mirror">
     <div id="time" class="time"></div>
     <div id="date" class="date"></div>
-    <div class="message">Bonjour, belle journée !</div>
+    <div id="greeting" class="message"></div>
+    <div id="weather" class="weather"></div>
+    <div id="news" class="news"></div>
   </div>
-  <script src="script.js"></script>
-</body>
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
 
-</body>
-</html>
+  <script>
+    // Configuration intégrée
+    const config = {
+      username: "driss",
+      city: "Marseille",
+      weatherApiKey: "1d3bf1034e8f24cfd764de4379a88d42", // 🔑 Remplace avec ta vraie clé OpenWeatherMap
+      rssFeedUrl: "https://www.lemonde.fr/rss/une.xml",
+      newsLimit: 5,
+      theme: {
+        backgroundColor: "black",
+        textColor: "white"
+      }
+    };
+
+    // Appliquer le thème
+    document.documentElement.style.setProperty('--bg-color', config.theme.backgroundColor);
+    document.documentElement.style.setProperty('--text-color', config.theme.textColor);
+
+    // Heure et date
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('time').textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      document.getElementById('date').textContent = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    // Message personnalisé
+    function updateGreeting() {
+      document.getElementById('greeting').textContent = `Bonjour, ${config.username} !`;
+    }
+
+    // Météo
+    async function fetchWeather() {
+      try {
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${config.city}&units=metric&lang=fr&appid=${config.weatherApiKey}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        const weatherTex
