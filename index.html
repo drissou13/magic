@@ -97,7 +97,7 @@
     // Météo
     async function fetchWeather() {
       try {
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${config.city}&units=metric&lang=fr&appid=${config.weatherApiKey}`;
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${Marseille}&units=metric&lang=fr&appid=${config.weatherApiKey}`;
         const res = await fetch(url);
         const data = await res.json();
         const weatherTex
