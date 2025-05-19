@@ -1,0 +1,11 @@
+{
+  "username": "Jean",
+  "city": "Paris",
+  "weatherApiKey": "1d3bf1034e8f24cfd764de4379a88d42",
+  "rssFeedUrl": "https://www.lemonde.fr/rss/une.xml",
+  "newsLimit": 5,
+  "theme": {
+    "backgroundColor": "black",
+    "textColor": "white"
+  }
+}
